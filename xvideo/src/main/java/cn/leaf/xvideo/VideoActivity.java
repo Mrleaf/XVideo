@@ -1,17 +1,20 @@
 package cn.leaf.xvideo;
 
 import android.app.Activity;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+
+import cn.leaf.xvideo.utils.CameraUtil;
 import cn.leaf.xvideo.view.VideoButtonInterface;
 import cn.leaf.xvideo.view.VideoCaptureView;
 
 public class VideoActivity extends Activity implements VideoButtonInterface,View.OnClickListener{
-
+    private Camera mCamera;
     private VideoCaptureView videoCaptureView;
     private ImageView mImgBack;
     @Override
@@ -35,6 +38,31 @@ public class VideoActivity extends Activity implements VideoButtonInterface,View
         if(videoCaptureView!=null)
             videoCaptureView.setVideoButtonInterface(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(videoCaptureView!=null){
+
+            mCamera = CameraUtil.getCamera(CameraUtil.getDefaultCameraID());
+            videoCaptureView.setCamera(mCamera,CameraUtil.getDefaultCameraID());
+        }
+
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if (mCamera != null){
+//            if(videoCaptureView!=null)
+//                videoCaptureView.setCamera(null,CameraUtil.getDefaultCameraID());
+            mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
+        }
+
+    }
+
 
     @Override
     public void onRecordButtonClicked() {

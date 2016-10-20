@@ -16,7 +16,9 @@
 
 package cn.leaf.xvideo.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -26,14 +28,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import cn.leaf.xvideo.R;
+import cn.leaf.xvideo.preview.CapturePreview;
+import cn.leaf.xvideo.utils.CameraUtil;
 
 /**
  * Created by leaf on 2016/10/19.
  */
 public class VideoCaptureView extends FrameLayout implements OnClickListener {
-
+	private Camera mCamera;
     private ImageView mRecordBtn,mThumbnail,mImgBack;
     private SurfaceView mSurfaceView;
+	private CapturePreview capturePreview;
 	private VideoButtonInterface mVideoButtonInterface;
 	public VideoCaptureView(Context context) {
 		super(context);
@@ -63,6 +68,12 @@ public class VideoCaptureView extends FrameLayout implements OnClickListener {
 
 	public SurfaceHolder getPreviewSurfaceHolder() {
 		return mSurfaceView.getHolder();
+	}
+
+	public void setCamera(Camera camera,int mCameraId){
+		this.mCamera = camera;
+		CameraUtil.setCameraDisplayOrientation((Activity) getContext(), mCameraId, mCamera);
+		capturePreview = new CapturePreview(mCamera,getPreviewSurfaceHolder());
 	}
 
 	public void setVideoButtonInterface(VideoButtonInterface videoButtonInterface){
