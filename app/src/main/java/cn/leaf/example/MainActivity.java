@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
 
-import cn.leaf.xvideo.VideoActivity;
-
 public class MainActivity extends Activity {
 
     private SurfaceView surface;

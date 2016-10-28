@@ -14,21 +14,16 @@
  *  limitations under the License.
  */
 
-package cn.leaf.xvideo.camera;
+package cn.leaf.xvideo.recorder;
 
+public interface VideoRecorderInterface {
 
-import cn.leaf.xvideo.utils.CLog;
+	public abstract void onRecordingStopped(String message);
 
-public class PrepareCameraException extends Exception {
+	public abstract void onRecordingStarted();
 
-	private static final String	LOG_PREFIX			= "Unable to unlock camera - ";
-	private static final String	MESSAGE				= "Unable to use camera for recording";
+	public abstract void onRecordingSuccess();
 
-	private static final long	serialVersionUID	= 6305923762266448674L;
+	public abstract void onRecordingFailed(String message);
 
-	@Override
-	public String getMessage() {
-		CLog.e(CLog.EXCEPTION, LOG_PREFIX + MESSAGE);
-		return MESSAGE;
-	}
 }

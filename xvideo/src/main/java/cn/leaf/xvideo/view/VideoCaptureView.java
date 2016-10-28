@@ -16,9 +16,7 @@
 
 package cn.leaf.xvideo.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -28,9 +26,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import cn.leaf.xvideo.R;
-import cn.leaf.xvideo.camera.NativeCamera;
 import cn.leaf.xvideo.preview.CapturePreview;
-import cn.leaf.xvideo.utils.CameraUtil;
 
 /**
  * Created by leaf on 2016/10/19.

@@ -35,7 +35,7 @@ import cn.leaf.xvideo.utils.CLog;
 
 @SuppressWarnings("deprecation")
 public class CameraWrapper {
-
+    private final String TAG = "CameraWrapper";
     private final int mDisplayRotation;
     private NativeCamera mNativeCamera = null;
     private Parameters   mParameters   = null;
@@ -49,23 +49,23 @@ public class CameraWrapper {
         return mNativeCamera.getNativeCamera();
     }
 
-    public void openCamera() throws OpenCameraException {
+    public void openCamera(){
         try {
             mNativeCamera.openNativeCamera();
         } catch (final RuntimeException e) {
             e.printStackTrace();
-            throw new OpenCameraException(OpenCameraException.OpenType.INUSE);
+            CLog.e(TAG, "相机已停用或正在由其他进程使用");
         }
 
-        if (mNativeCamera.getNativeCamera() == null) throw new OpenCameraException(OpenCameraException.OpenType.NOCAMERA);
+        if (mNativeCamera.getNativeCamera() == null)
+            CLog.e(TAG,"没找到相机设备");
     }
 
-    public void prepareCameraForRecording() throws PrepareCameraException {
+    public void prepareCameraForRecording() {
         try {
             mNativeCamera.unlockNativeCamera();
         } catch (final RuntimeException e) {
             e.printStackTrace();
-            throw new PrepareCameraException();
         }
     }
 
@@ -90,7 +90,6 @@ public class CameraWrapper {
             CLog.e(CLog.CAMERA, "Failed to find supported recording size - falling back to requested: " + width + "x" + height);
             return new RecordingSize(width, height);
         }
-        CLog.d(CLog.CAMERA, "Recording size: " + recordingSize.getWidth() + "x" + recordingSize.getHeight());
         return new RecordingSize(recordingSize.getWidth(), recordingSize.getHeight());
     }
 
@@ -128,7 +127,6 @@ public class CameraWrapper {
         params.setPreviewFormat(ImageFormat.NV21);
         mNativeCamera.updateNativeCameraParameters(params);
         mNativeCamera.setDisplayOrientation(getRotationCorrection());
-        CLog.d(CLog.CAMERA, "Preview size: " + previewSize.getWidth() + "x" + previewSize.getHeight());
     }
 
     public void enableAutoFocus() {

@@ -63,14 +63,6 @@ public class CapturePreview implements SurfaceHolder.Callback {
 
 		try {
 			mCameraWrapper.configureForPreview(width, height);
-			//camera.getParameters();
-//			final Camera.Parameters params = mNativeCamera.getNativeCameraParameters();
-//			final CameraSize previewSize = getOptimalSize(params.getSupportedPreviewSizes(), viewWidth, viewHeight);
-//
-//			params.setPreviewSize(previewSize.getWidth(), previewSize.getHeight());
-//			params.setPreviewFormat(ImageFormat.NV21);
-//			camera.setParameters(params);
-//			camera.setDisplayOrientation(degrees);
 			CLog.d(CLog.PREVIEW, "Configured camera for preview in surface of " + width + " by " + height);
 		} catch (final RuntimeException e) {
 			e.printStackTrace();
